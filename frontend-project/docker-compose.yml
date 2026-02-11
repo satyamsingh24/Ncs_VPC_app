@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  frontend-container:
+    build: ./frontend
+    networks:
+      - ncs-net
+
+  reverse-proxy:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend-container
+    networks:
+      - ncs-net
+
+networks:
+  ncs-net:
+    driver: bridge
